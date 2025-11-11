@@ -61,6 +61,48 @@ footer{padding:28px; margin-top:40px; border-top:1px solid rgba(255,255,255,0.02
   z-index:9999;
   mix-blend-mode: screen;
 }
+/* SERVICES */
+  .section{
+    padding:80px 28px;
+    max-width:var(--max-width);
+    margin:0 auto;
+    box-sizing:border-box;
+  }
+  .services{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+    margin-top:18px;
+  }
+  .service-card{
+    background:var(--card);
+    border-radius:12px;
+    padding:18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    border:1px solid rgba(255,255,255,0.02);
+    transition:transform .36s cubic-bezier(.2,.9,.3,1), box-shadow .36s;
+    overflow:hidden;
+  }
+  .service-card:hover{
+    transform:translateY(-10px) scale(1.01);
+    box-shadow: 0 22px 60px rgba(4,4,6,0.7);
+  }
+  .service-icon{
+    width:56px; height:56px; border-radius:10px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    display:grid; place-items:center;
+    font-weight:700; color:var(--accent); margin-bottom:12px;
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  .service-title{ font-weight:700; margin-bottom:8px; }
+  .service-desc{ color:var(--muted); font-size:14px; line-height:1.45 }
+
+  /* responsive */
+  @media (max-width:960px){
+    .hero-inner{ flex-direction:column; gap:26px; align-items:flex-start; padding-top:60px; padding-bottom:40px }
+    .hero-right{ width:100%; max-width:800px }
+    .hero-left{ max-width:100% }
+  }
 </style>
 </head>
 <body>
@@ -101,7 +143,37 @@ footer{padding:28px; margin-top:40px; border-top:1px solid rgba(255,255,255,0.02
     </div>
   </div> 
 </section>
+<!-- SERVICES -->
+<section class="section" aria-labelledby="servicesTitle">
+  <h2 id="servicesTitle" style="font-size:20px; margin:0; color: #fff; font-weight:700">What we do</h2>
+  <p class="small" style="margin-top:6px; color:var(--muted)">High-end visual effects and cinematic finishing tailored for feature films and premium content.</p>
 
+  <div class="services" style="margin-top:20px">
+    <div class="service-card">
+      <div class="service-icon">3D</div>
+      <div class="service-title">CGI & 3D Animation</div>
+      <div class="service-desc">Photoreal characters, environment builds and creature work — rendered to film standards.</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">COM</div>
+      <div class="service-title">Compositing & Greenscreen</div>
+      <div class="service-desc">Seamless integration, accurate lighting, roto and plate cleanup for complex shots.</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">MG</div>
+      <div class="service-title">Motion Graphics & Titles</div>
+      <div class="service-desc">Cinematic title design, animated typography and on-screen graphics for narrative impact.</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">COL</div>
+      <div class="service-title">Color Grading & Finishing</div>
+      <div class="service-desc">Final color pass, film grain, and deliverables in all major formats.</div>
+    </div>
+  </div>
+</section>
 <footer>
   <div class="watermark">2R FX STUDIO</div>
   <div>© 2R FX Studio</div>
