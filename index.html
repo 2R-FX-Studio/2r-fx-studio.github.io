@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>2R FX Studio — Dhallywood VFX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070609;
+  --card:#0d0d10;
+  --muted:#a8a8b3;
+  --accent:#ff5d6c;
+  --glass:rgba(255,255,255,0.04);
+  --glass-2:rgba(255,255,255,0.02);
+  --max-width:1200px;
+}
+html,body{height:100%;margin:0;font-family:"Montserrat",system-ui,sans-serif;background:var(--bg);color:#ececf2;overflow-x:hidden;cursor:none;}
+.hero{position:relative;min-height:100vh;display:grid;place-items:center;overflow:hidden;}
+.bg-media{position:absolute;inset:0;z-index:0;filter: contrast(1.05) saturate(1.03) brightness(.6);background: linear-gradient(180deg, rgba(10,10,12,0.55) 0%, rgba(5,5,6,0.65) 100%);}
+.bg-media video{width:140%;height:100%;object-fit:cover;transform:translateX(-10%);opacity:0.95;}
+.grain{position:absolute;inset:0;z-index:2;pointer-events:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="1" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>');mix-blend-mode:overlay;}
+.hero-inner{position:relative;z-index:5;width:100%;max-width:var(--max-width);padding:48px 28px;display:flex;gap:40px;align-items:center;justify-content:space-between;box-sizing:border-box;}
+.hero-left{flex:1;max-width:720px;}
+.brand{display:flex;gap:14px;align-items:center;margin-bottom:14px;}
+.logo{width:200px;height:200px;display:grid;place-items:center;background:linear-gradient(135deg,#111 0%, rgba(255,255,255,0.02) 100%);border-radius:10px;box-shadow:0 6px 28px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);font-weight:900;font-family:"Playfair Display", serif;color:var(--accent);font-size:22px;}
+.brand .studio{font-weight:700;letter-spacing:0.6px;color:#f6f6f9;}
+.brand .tag{color:var(--muted);font-size:13px;margin-top:4px;}
+.headline{font-family:"Playfair Display", serif;font-size: clamp(32px, 6vw, 64px);line-height:1;margin:8px 0 16px 0;letter-spacing:-1px;transform-origin:left center;overflow:visible;}
+.headline .reveal{display:inline-block;transform:translateY(14px);opacity:0;will-change:transform,opacity;}
+.sub{color:var(--muted);font-size:16px;max-width:620px;margin-bottom:22px;}
+.ctas{display:flex;gap:14px;align-items:center;}
+.btn{padding:12px 20px;border-radius:10px;font-weight:600;letter-spacing:0.2px;cursor:pointer;border:1px solid rgba(255,255,255,0.06);backdrop-filter: blur(6px);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));color:#fff;transition:transform .24s cubic-bezier(.2,.9,.3,1), box-shadow .2s;box-shadow:0 6px 24px rgba(0,0,0,0.6);}
+.btn:active{transform:translateY(1px);}
+.btn.primary{background:linear-gradient(90deg, rgba(255,93,108,0.13), rgba(255,93,108,0.06));border: 1px solid rgba(255,93,108,0.18);color: #fff;box-shadow:0 8px 40px rgba(255,93,108,0.06);}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.04);}
+.hero-right{width:420px;max-width:40%;min-width:260px;aspect-ratio:16/9;position:relative;border-radius:14px;overflow:hidden;box-shadow:0 18px 60px rgba(5,5,8,0.7);border:1px solid rgba(255,255,255,0.04);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));transition:transform .5s cubic-bezier(.2,.9,.3,1);}
+.mini-video{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.78);}
+.mini-controls{position:absolute;left:14px;bottom:12px;display:flex;gap:10px;align-items:center;z-index:5;}
+.play-pill{padding:8px 12px;border-radius:22px;display:flex;gap:8px;align-items:center;border:1px solid rgba(255,255,255,0.03);cursor:pointer;}
+.play-pill svg{width:18px;height:18px;opacity:0.95;}
+.parallax{will-change:transform;}
+.fade-in{animation:fadeUp .9s cubic-bezier(.2,.9,.3,1) forwards;opacity:0;}
+@keyframes fadeUp{to{opacity:1;transform:none}}
+.reveal-1{animation:reveal .7s cubic-bezier(.2,.9,.3,1) forwards .18s;}
+.reveal-2{animation:reveal .7s cubic-bezier(.2,.9,.3,1) forwards .34s;}
+.reveal-3{animation:reveal .7s cubic-bezier(.2,.9,.3,1) forwards .5s;}
+@keyframes reveal{to{transform:translateY(0);opacity:1}}
+#trailCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
+footer{padding:28px; margin-top:40px; border-top:1px solid rgba(255,255,255,0.02); display:flex; justify-content:space-between; align-items:center; max-width:var(--max-width); margin-left:auto; margin-right:auto; color:var(--muted);}
+.watermark{color:rgba(255,255,255,0.03); font-weight:700; letter-spacing:8px; font-size:12px;}
+#trailCanvas{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:9999;
+  mix-blend-mode: screen;
+}
+</style>
+</head>
+<body>
+
+<canvas id="trailCanvas"></canvas>
+
+<section class="hero">
+  <div class="bg-media" aria-hidden="true">
+    <video id="bgvid" autoplay muted loop playsinline>
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="brand fade-in">
+        <div class="logo"><img src="2R-FX-Studio-Logo.svg" alt="2R FX Studio Logo" style="width: 200px; height: auto;"></div>
+      <h1 class="headline parallax">
+        <span class="reveal reveal-1">We born to create</span>
+        <span class="reveal reveal-2" id="animated-words">cinematic worlds</span>
+      </h1>
+     <!-- <p class="sub fade-in"></p>
+      <div class="ctas fade-in">
+      </div> -->
+    </div>
+   <div class="hero-right">
+      <!-- <video class="mini-video" autoplay muted loop playsinline>
+        <source src="hero3.mp4" type="video/mp4">
+      </video> -->
+      <div class="mini-controls">
+          <div class="play-pill" id="playReel">
+       <!-- <svg viewBox="0 0 24 24" fill="none"><path d="M5 3v18l15-9L5 3z" fill="#fff"/></svg>
+          <div>Play Reel</div> -->
+          <button class="btn primary" id="watchReel">Watch Reel</button>
+        </div>
+      </div>
+    </div>
+  </div> 
+</section>
+
+<footer>
+  <div class="watermark">2R FX STUDIO</div>
+  <div>© <span id="year"></span> 2R FX Studio — Dhaka</div>
+</footer>
+
+<script>
+// footer year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// headline animation
+const phrases=["cinematic worlds","memorable moments","Dhallywood VFX","visual storytelling"];
+let idx=0;
+const el=document.getElementById('animated-words');
+setInterval(()=>{idx=(idx+1)%phrases.length;el.style.opacity=0;el.style.transform='translateY(6px)';setTimeout(()=>{el.textContent=phrases[idx];el.style.opacity=1;el.style.transform='translateY(0)';},320);},3500);
+
+// Watch Reel
+const openLightbox = ()=>{
+  const src = 'hero.mp4';
+  const overlay = document.createElement('div');
+  overlay.style.position='fixed';
+  overlay.style.inset=0;
+  overlay.style.background='rgba(0,0,0,0.88)';
+  overlay.style.zIndex=9999;
+  overlay.style.display='grid';
+  overlay.style.placeItems='center';
+  overlay.innerHTML = `
+    <div style="width:90%;max-width:1100px;border-radius:12px;overflow:hidden;box-shadow:0 28px 80px rgba(0,0,0,0.8);">
+      <video controls autoplay playsinline style="width:100%;height:100%;display:block;background:#000"><source src="${src}" type="video/mp4">Your browser does not support video</video>
+    </div>
+    <button aria-label="close" style="position:fixed;right:18px;top:18px;border:none;background:transparent;color:#fff;font-size:28px;cursor:pointer">✕</button>
+  `;
+  document.body.appendChild(overlay);
+  overlay.querySelector('button').onclick = ()=> overlay.remove();
+  overlay.addEventListener('click', (e)=>{if(e.target===overlay) overlay.remove();});
+};
+document.getElementById('watchReel').addEventListener('click', openLightbox);
+document.getElementById('playReel').addEventListener('click', openLightbox);
+
+//// cursor firefly trail
+const canvas = document.getElementById('trailCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+let mouse = {x: canvas.width/2, y: canvas.height/2};
+const trails = [];
+window.addEventListener('mousemove', e=>{mouse.x=e.clientX; mouse.y=e.clientY;});
+window.addEventListener('resize', ()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;});
+
+class Trail{
+  constructor(x,y){
+    this.x=x; this.y=y; this.size=Math.random()*2+1; this.alpha=Math.random()*0.5+0.5;
+    this.vx=(Math.random()-0.5)*0.5; this.vy=(Math.random()-0.5)*0.5;
+    this.color = `rgba(255, 255, 255, ${this.alpha})`;
+  }
+  update(){
+    this.x += (mouse.x-this.x)*0.01+this.vx;
+    this.y += (mouse.y-this.y)*0.01+this.vy;
+    this.alpha -= 0.005; 
+  }
+  draw(){
+    ctx.fillStyle=this.color;
+    ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill();
+  }
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  trails.push(new Trail(mouse.x,mouse.y));
+  for(let i=trails.length-1;i>=0;i--){
+    const t=trails[i]; t.update(); t.draw();
+    if(t.alpha<=0.01) trails.splice(i,1);
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>
